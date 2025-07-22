@@ -20,18 +20,17 @@ resource "aws_cloudwatch_metric_alarm" "alb_500_errors" {
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "alb_400_errors" {
-  count = length(var.alarm_sns_topics) > 0 && var.alarm_alb_400_errors_threshold != 0 ? 1 : 0
-
-  alarm_name                = "${var.ignore_iam_account_alias ? "eb-${var.name}-alb-400-errors" : data.aws_iam_account_alias.current[0]}-eb-${var.name}-${var.environment}-alb-400-errors"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = "2"
-  metric_name               = "HTTPCode_ELB_4XX_Count"
+resource "aws_cloudwatch_metric_alarm" "alb_UnHealthyHostCount" {
+  count                     = length(var.alarm_sns_topics) > 0 && var.alarm_alb_400_errors_threshold != 0 ? 1 : 0
+  alarm_name                = "${var.ignore_iam_account_alias ? "eb-${var.name}-alb-400-errors" : data.aws_iam_account_alias.current[0]}-eb-${var.name}-${var.environment}-UnhealthyHost"
+  comparison_operator       = "GreaterThanThreshold"
+  evaluation_periods        = "1"
+  metric_name               = "UnHealthyHostCount"
   namespace                 = "AWS/ApplicationELB"
   period                    = "300"
-  statistic                 = "Maximum"
-  threshold                 = var.alarm_alb_400_errors_threshold
-  alarm_description         = "Number of 400 errors at ALB above threshold"
+  statistic                 = "Average"
+  threshold                 = 0
+  alarm_description         = "Alarm when unhealthy host count is greater than 0"
   alarm_actions             = var.alarm_sns_topics
   ok_actions                = var.alarm_sns_topics
   insufficient_data_actions = []
