@@ -53,7 +53,7 @@ locals {
     {
       name      = "DeploymentPolicy"
       namespace = "aws:elasticbeanstalk:command"
-      value     = "AllAtOnce"
+      value     = var.deployment_policy
     },
     {
       name      = "IgnoreHealthCheck"
