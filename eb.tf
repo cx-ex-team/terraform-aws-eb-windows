@@ -21,6 +21,11 @@ locals {
       value     = "false"
     },
     {
+      name      = "DefaultSSHPort"
+      namespace = "aws:elasticbeanstalk:control"
+      value     = "22"
+    },
+    {
       name      = "LaunchTimeout"
       namespace = "aws:elasticbeanstalk:control"
       value     = "0"
@@ -441,7 +446,7 @@ locals {
     {
       name      = "SSHSourceRestriction"
       namespace = "aws:autoscaling:launchconfiguration"
-      value     = "tcp,22,22,0.0.0.0/0"
+      value     = "false"
     },
     {
       name      = "MonitoringInterval"
