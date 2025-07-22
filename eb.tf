@@ -21,11 +21,6 @@ locals {
       value     = "false"
     },
     {
-      name      = "DefaultSSHPort"
-      namespace = "aws:elasticbeanstalk:control"
-      value     = "22"
-    },
-    {
       name      = "LaunchTimeout"
       namespace = "aws:elasticbeanstalk:control"
       value     = "0"
