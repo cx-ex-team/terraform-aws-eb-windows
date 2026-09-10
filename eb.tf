@@ -439,11 +439,6 @@ locals {
       value     = var.root_volume_size
     },
     {
-      name      = "SSHSourceRestriction"
-      namespace = "aws:autoscaling:launchconfiguration"
-      value     = "false"
-    },
-    {
       name      = "MonitoringInterval"
       namespace = "aws:autoscaling:launchconfiguration"
       value     = "5 minute"
