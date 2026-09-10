@@ -676,6 +676,12 @@ resource "aws_elastic_beanstalk_application" "app" {
   count       = var.eb_application_name == "" ? 1 : 0
   name        = var.name
   description = "${var.name} EB APP"
+  tags        = { aws-apn-id = "pc:1qi7sy6bfby2dfusyolewpuu0" }
+  appversion_lifecycle {
+    service_role          = aws_iam_role.eb_service.arn
+    delete_source_from_s3 = true
+    max_count             = 10
+  }
 }
 
 resource "aws_elastic_beanstalk_environment" "env" {
@@ -687,6 +693,7 @@ resource "aws_elastic_beanstalk_environment" "env" {
   tier                   = var.eb_tier
   wait_for_ready_timeout = var.eb_wait_for_ready_timeout
   version_label          = var.eb_version_label
+  tags                   = { aws-apn-id = "pc:1qi7sy6bfby2dfusyolewpuu0" }
 
   dynamic "setting" {
     for_each = local.eb_settings_final
