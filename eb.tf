@@ -404,11 +404,6 @@ locals {
 
   eb_launch_config = [
     {
-      name      = "ImageId"
-      namespace = "aws:autoscaling:launchconfiguration"
-      value     = var.ami_id
-    },
-    {
       name      = "InstanceType"
       namespace = "aws:autoscaling:launchconfiguration"
       value     = var.instance_type
@@ -437,11 +432,6 @@ locals {
       name      = "RootVolumeSize"
       namespace = "aws:autoscaling:launchconfiguration"
       value     = var.root_volume_size
-    },
-    {
-      name      = "SSHSourceRestriction"
-      namespace = "aws:autoscaling:launchconfiguration"
-      value     = "false"
     },
     {
       name      = "MonitoringInterval"
