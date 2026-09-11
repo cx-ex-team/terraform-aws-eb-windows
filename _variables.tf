@@ -613,4 +613,7 @@ variable "ami_id" {
   default     = ""
   description = "ElasticBeanstalk custom AMI ID"
 }
-
+variable "os" {
+  type        = string
+  description = "OS options windows or linux"
+}
