@@ -244,6 +244,16 @@ locals {
       namespace = "aws:cloudformation:template:parameter"
       value     = "enhanced"
     },
+    {
+      name      = "Enable 32-bit Applications"
+      namespace = "aws:elasticbeanstalk:container:dotnet:apppool"
+      value     = "False"
+    },
+    {
+      name      = "Target Runtime"
+      namespace = "aws:elasticbeanstalk:container:dotnet:apppool"
+      value     = "4.0"
+    },
   ]
 
   eb_vpc = [
@@ -394,6 +404,11 @@ locals {
 
   eb_launch_config = [
     {
+      name      = "ImageId"
+      namespace = "aws:autoscaling:launchconfiguration"
+      value     = var.ami_id
+    },
+    {
       name      = "InstanceType"
       namespace = "aws:autoscaling:launchconfiguration"
       value     = var.instance_type
@@ -422,6 +437,11 @@ locals {
       name      = "RootVolumeSize"
       namespace = "aws:autoscaling:launchconfiguration"
       value     = var.root_volume_size
+    },
+    {
+      name      = "SSHSourceRestriction"
+      namespace = "aws:autoscaling:launchconfiguration"
+      value     = "false"
     },
     {
       name      = "MonitoringInterval"
@@ -684,22 +704,6 @@ resource "aws_elastic_beanstalk_environment" "env" {
       resource  = ""
     }
   }
-  dynamic "setting" {
-    for_each = var.os == "windows" ? {
-      target_runtime = {
-        namespace = "aws:elasticbeanstalk:container:dotnet:apppool"
-        name      = "Target Runtime"
-        value     = "4.0"
-      }
-    } : {}
-
-    content {
-      namespace = setting.value.namespace
-      name      = setting.value.name
-      value     = setting.value.value
-    }
-  }
-
 
   # Add additional Elastic Beanstalk settings
   # For full list of options, see https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html

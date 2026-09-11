@@ -607,7 +607,8 @@ variable "solutions_stack_name_regex" {
   description = "Regex string to apply to the solution stack list returned by AWS"
 }
 
-variable "os" {
+variable "ami_id" {
   type        = string
-  description = "OS options windows or linux"
+  default     = ""
+  description = "ElasticBeanstalk custom AMI ID"
 }
