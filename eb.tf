@@ -686,11 +686,6 @@ resource "aws_elastic_beanstalk_environment" "env" {
   }
   dynamic "setting" {
     for_each = var.os == "windows" ? {
-      image_id = {
-        namespace = "aws:autoscaling:launchconfiguration"
-        name      = "ImageId"
-        value     = var.ami_id
-      }
       target_runtime = {
         namespace = "aws:elasticbeanstalk:container:dotnet:apppool"
         name      = "Target Runtime"
