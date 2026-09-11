@@ -701,11 +701,6 @@ resource "aws_elastic_beanstalk_environment" "env" {
         name      = "Target Runtime"
         value     = "4.0"
       }
-      ssh_source_restriction = {
-        name      = "SSHSourceRestriction"
-        namespace = "aws:autoscaling:launchconfiguration"
-        value     = "false"
-      }
     } : {}
 
     content {
